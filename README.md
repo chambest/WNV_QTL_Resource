@@ -1,13 +1,13 @@
 # WNV_QTL_Resource
 ## Description
 
-This is the process for maintaining and reporting the AIREADI OMOP relational database in Azure. This process includes SQL statements to create the standard OMOP tables in a Postgres database, as well as the primary keys, indices and constraints. There is also a Python-based ETL process designed to take the Redcap extracts and load them into this database. And finally, there is an R-based process to create the OMOP Data Quality Dashboard.
+ This repostitory contains the workflow associated with the manuscript titled'Adaptive immune response to West Nile virus infection in the Collaborative Cross mouse model: A database of cellular phenotypes and Quantitative Trait Loci'. There are four Jupyter notebooks with step by step instructions, along with R programs that contain the code in these notebooks. These processes were used to generate all of the analyese presented in this manuscript.
 
 ## Getting started
 
 ### Prerequisites/Dependencies
 
-The AIREADI OMOP database process runs on three different Azure virtual machines. The Postgres database itself resided on OMOP_DB. The ETL is run on OMOP_ETL. And the OMOP Data Quality Dashboard is run on OMOP_DQD. The vocabulary and clinical data, data dictionary and concept mappings for both questions and answers must be uploaded to the appropriate VM (details below). The vocabulary data must be downloaded from the following website: https://athena.ohdsi.org/search-terms/start 
+ 
 
 ### Inputs and Outputs
 
