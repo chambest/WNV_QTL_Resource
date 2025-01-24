@@ -16,6 +16,9 @@ This is the program/notebook for West Nile virus QTL hotspot analysis.
 ## WNV_QTL_RandomWalk_Prioritization_Publication
 This is the program/notebook for West Nile virus QTL random walk gene prioritization.
 
+## WNV_rix_qtl_mapping_functions_publication.R
+This is an R program that contains all of the functions necessary to run the above notebooks.
+
 
 
  
