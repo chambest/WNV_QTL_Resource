@@ -5,7 +5,7 @@
  This repostitory contains the workflow associated with the manuscript titled'Adaptive immune response to West Nile virus infection in the Collaborative Cross mouse model: A database of cellular phenotypes and Quantitative Trait Loci'. There are four Jupyter notebooks with step by step instructions, along with R programs that contain the code in these notebooks. These processes were used to generate all of the analyses presented in this manuscript.
 
 ## SIG_QTL_Mapping_HaplotypeGrouping_Workflow
-This is the program/notebook for West Nile virus QTL mapping, haplotype grouping and gene candidate overflow. 
+This is the program/notebook for West Nile virus QTL mapping, haplotype grouping and gene candidate workflow. 
 
 ## WNV_ QTL_Phenotype_Clustering_Publication
 This is the program/notebook for West Nile virus QTL phenotype clustering.
