@@ -1,33 +1,25 @@
 ## Functions to be used for the WNV QTL gene candidate processing
 
- 
-#BiocManager::install("BSgenome.Mmusculus.UCSC.mm10")
-library("BSgenome.Mmusculus.UCSC.mm10")
+#The DOQTL package is the main package needed to run the QTL in the project
 #library(htmltools)
 ## Need to install DOQTL from GITHUB
 #devtools::install_github('dmgatti/DOQTL')
 #library(matrixStats)
-library(sm)
-library(regress)
-library(rsq)
-library(gdata)
 library(DOQTL)
+
+#The following is used for checking overlap of QTL and gene coordinates
 library(GenomicRanges)
-library(VariantAnnotation)
-library(foreach)
-library(doParallel)
+
+#The following is used for any graphics produced in these functions
 library(RColorBrewer)
-library("gridExtra")
-library("pdftools")
-library(factoextra)
+
+#The following are used for the various data wrangling and graphics tasks done in these functions
 library(plyr)  
 library(dplyr)
 library(tidyr)
 library(stringr)
 library(ggplot2)
 library(gplots)
-library("RColorBrewer")
-library(forcats)
 library(ggbeeswarm)
 library(cluster)    
 library(stringi) 
