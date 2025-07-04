@@ -118,7 +118,7 @@ interval = bayesint_v2(qtl, chr = 'X')
 interval
 
 ## Create founder effects (coefficient) plot for peak interval
-coefplot_v2(qtl, chr='X', start=interval[1,3], end=interval[3,3], sex='F', main='treg_CD4pos_Foxp3neg_box_cox_7_WNV_Spleen', cex.main=.7)
+coefplot_v2(qtl, chr='X', start=interval[1,3], end=interval[3,3], sex='M', main='treg_CD4pos_Foxp3neg_box_cox_7_WNV_Spleen', cex.main=.7)
  
 ## Get marker at peak
 get_min_marker(qtl, chr='X')
