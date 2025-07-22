@@ -22,16 +22,16 @@ download.file(url = "https://figshare.com/ndownloader/files/51510062", destfile 
 download.file(url = "https://figshare.com/ndownloader/files/51510059", destfile = "??????/Data/Mapping//CC001-Uncb38V01.csv")
 
 # Download mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz
-download.file(url = "https://figshare.com/ndownloader/files/51509939", destfile = "??????/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz")
+download.file(url = "https://figshare.com/ndownloader/files/51509939", destfile = "??????/Data/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz")
 
 # Download mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz.tbi
-download.file(url = "https://figshare.com/ndownloader/files/51509936", destfile = "??????/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz.tbi")
+download.file(url = "https://figshare.com/ndownloader/files/51509936", destfile = "??????/Data/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz.tbi")
 
 # Download mgi_annotation.rpt
-download.file(url = "https://figshare.com/ndownloader/files/51510080", destfile = "??????/mgi_annotation.rpt")
+download.file(url = "https://figshare.com/ndownloader/files/51510080", destfile = "??????/Data/Annotation/mgi_annotation.rpt")
 
 # Download MOUSE_10090_idmapping.dat
-download.file(url = "https://figshare.com/ndownloader/files/51510083", destfile = "??????/MOUSE_10090_idmapping.dat")
+download.file(url = "https://figshare.com/ndownloader/files/51510083", destfile = "??????/Data/Annotation/MOUSE_10090_idmapping.dat")
 
 ####################################################################################
 #### Step 2. Create Phenotype Dataframe
