@@ -2,19 +2,31 @@
 # This program uses kmeans clustering to group phenotypes together for candidate gene analysis
 ###################################################################################################
 
-## Load R functions and libraries
-#setwd('/Users/chambest/Documents/OHSU/Shannons Work/Immunogenetics/Code')
-source('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Code/WNV_rix_qtl_mapping_functions_publication.r')
-
-########################################################################### 
-## Plot overlapping intervals for a panel, tissue, timepoint, chromosome of interest
 ###########################################################################
-allqtls<-read.csv('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/QTL/Final Annotated QTL.csv')
+#### Step 1. Load Necessary R Functions and Libraries
+###########################################################################
+
+## Load R functions and libraries
+ 
+source('??????/WNV_rix_qtl_mapping_functions_publication.r')
+
+### The file below needs to have destination directory added by replacing ??????. ####
+
+# Download Final Annotated QTL.csv
+download.file(url = "https://figshare.com/ndownloader/files/51509951", destfile = "??????/Final Annotated QTL.csv")
+
+###########################################################################
+#### Step 2. Set up and run the k-means clustering
+###########################################################################
+
+## Read the QTL data and select the panel, tissue, time and chomosome of interest
+allqtls<-read.csv('??????/Final Annotated QTL.csv')
  
 qtls<-filter(allqtls,Panel=='Treg' & Tissue=='Spleen' & Time=='D07' & Chromosome=='X')
 minint=min(qtls$Start.Pos)
 maxint=max(qtls$End.Pos)
 
+## Run the k-means clustering, select peak lod value cutoff and set k based on the number of QTL being clustered
 set.seed(20000)
 cluster<-qtls[qtls$Peak.LOD.Value>=6,]
  
@@ -26,7 +38,13 @@ fit <- kmeans(cluster$Peak.LOD.Position, clust)
 cluster<- data.frame(cluster$Phenotype, fit$cluster)
 
 ints<-left_join(qtls,cluster,by=c("Phenotype"="cluster.Phenotype"))
-save(ints,file=' ')
+
+###########################################################################
+#### Step 3. Run clustering report
+###########################################################################
+
+chr='X' 
+
 cc <- function(x){ifelse(x==1, "red1",ifelse(x==2,"red2",ifelse(x==3,"red3",ifelse(x==4,"red4",
                                                                                    ifelse(x==5,'red5',ifelse(x==6,"red6",ifelse(x==7,"red7",ifelse(x==8,"red8","green"))))))))}
 ff <- function(x){ifelse(x < 6, "grey3","black")}
