@@ -2,18 +2,34 @@
 # This program identifies 2Mb hotspots on a chromosome based on QTL density
 ###########################################################################
 
-## Load R functions and libraries
- 
-source('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Code/WNV_rix_qtl_mapping_functions_publication.r')
+###########################################################################
+#### Step 1. Load Necessary R Functions and Libraries and Install QHOT
+###########################################################################
 
-load("/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/QTL/allsnps_genesonly_final_infected.rda")
+## Load R functions and libraries and download required files, replace ?????? with specific directory
+source('??????/WNV_rix_qtl_mapping_functions_publication.r')
+install.packages("QHOT")
+library(QHOT)
+
+### All of the files below need to have destination directories added by replacing ??????. ####
+
+# Download allsnps_genesonly_final_infected.rda
+download.file(url = "https://figshare.com/ndownloader/files/51509954", destfile = "??????/allsnps_genesonly_final_infected.rda")
+
+###########################################################################
+#### Step 2. Create the QTL list to be used in the hotspot analysis
+###########################################################################
+
+## Load the master annotated variant file and derive the QTL information, all QTL are used
+load("??????/allsnps_genesonly_final_infected.rda")
 
 #QTL that match criteria for QTL hotspot detection
 allqtl<-distinct(allsnps_genesonly_final_infected,finalpheno, time, tissue, panel, start.y, end.y, chr,label1,maxlodval.y,finalcat)
 
-####################################################################################################### 
-# Statistical QTL hotspot detection, this example uses 356 QTL selected as described in the paper
-#######################################################################################################
+###########################################################################
+#### Step 3. Run the hotpot analyses for each tissue/timepoint separately. 
+#### Panels will be annotated on each analysis output.
+###########################################################################
 
 library(QHOT)
 
