@@ -1,14 +1,46 @@
 ####################################################################### 
 # This program runs the RWR for five seed genesets and annotates candidate genes
 #######################################################################
-#BiocManager::install("RandomWalkRestartMH", force=TRUE)
-source('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Code/WNV_rix_qtl_mapping_functions_publication.r')
+ 
+#######################################################################
+#### Step 1. Load Necessary R Functions and Libraries
+#######################################################################
+ 
+## Load R functions and libraries and download required files, replace ?????? with specific directory
+source('??????/WNV_rix_qtl_mapping_functions_publication.r')
 
-#################################################################################################
-#  Reporting on the final set of infected only QTL for details
-#################################################################################################
+### All of the files below need to have destination directories added by replacing ??????. ####
 
-load("/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/QTL/allsnps_genesonly_final_infected.rda")
+# Download allsnps_genesonly_final_infected.rda
+download.file(url = "https://figshare.com/ndownloader/files/51509954", destfile = "??????/allsnps_genesonly_final_infected.rda")
+
+# Download 10090.protein.links.v11.0.txt
+download.file(url = "https://figshare.com/ndownloader/files/51509903", destfile = "??????/10090.protein.links.v11.0.txt")
+
+# Download PPI_MGIBatchReport_20210624_181229.xlsx
+download.file(url = "https://figshare.com/ndownloader/files/51509900", destfile = "??????/PPI_MGIBatchReport_20210624_181229.xlsx")
+
+# Download NIHMS154918-supplement-Table_1_genes.csv
+download.file(url = "https://figshare.com/ndownloader/files/51509840", destfile = "??????/NIHMS154918-supplement-Table_1_genes.csv")
+
+# Download NIHMS154918-supplement-Table_2_genes.csv
+download.file(url = "https://figshare.com/ndownloader/files/51509825", destfile = "??????/NIHMS154918-supplement-Table_2_genes.csv")
+
+# Download TCR_Signaling_Pathway.txt
+download.file(url = "https://figshare.com/ndownloader/files/51509822", destfile = "??????/TCR_Signaling_Pathway.txt")
+
+# Download Interferons.txt
+download.file(url = "https://figshare.com/ndownloader/files/51509828", destfile = "??????/Interferons.txt")
+
+# Download TNF_Family_Members.txt
+download.file(url = "https://figshare.com/ndownloader/files/51509831", destfile = "??????/TNF_Family_Members.txt")
+
+#######################################################################
+#### Step 2. Load the annotated variant file and derive the list of candidate genes
+#######################################################################
+
+## Load the master annotated variant file
+load("??????/allsnps_genesonly_final_infected.rda")
 
 #### Select high impact genes from the snp file, as defined in the paper
 
@@ -21,18 +53,18 @@ highimpact<-filter(Mb15, (csq1=="High Impact" | csq1=='Moderate Impact' |
 highimpactgenes<-distinct(highimpact,Marker.Symbol, genome.coordinate.start,genome.coordinate.end,chr)
 highimpactqtl<-distinct(highimpact,finalpheno, time, tissue, panel, start.y, end.y, chr,label1,maxlodval.y,finalcat)
 
-#######################################################################################################
-##### Random Walk with Restart, and Multiplex and Heterogenous matrices
-##### Algorithm is case sensitive
-##### This first section reads the String PPI database and creates the PPI network in iGraph
-#######################################################################################################
-string<-read.delim('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/String/10090.protein.links.v11.0.txt',stringsAsFactors=F,header=T, sep=" ")
+#######################################################################
+#### Step 3. Create the STRING PPI in iGRAPH and get human homologue genes
+#######################################################################
+
+#Read the base STRING interaction file and filter based on a physical interaction score>=700
+string<-read.delim('??????/10090.protein.links.v11.0.txt',stringsAsFactors=F,header=T, sep=" ")
 string_real<-string[string$combined_score>700,]
 
 string_real$newprot1<-substr(string_real$protein1,str_locate(string_real$protein1,"10090")[,2]+2,length(string_real$protein1))
 string_real$newprot2<-substr(string_real$protein2,str_locate(string_real$protein2,"10090")[,2]+2,length(string_real$protein2))
 
-jax<-read.xls("/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/String/PPI_MGIBatchReport_20210624_181229.xlsx")
+jax<-read.xls("??????/PPI_MGIBatchReport_20210624_181229.xlsx")
 jax<-filter(jax,MGI.Gene.Marker.ID != 'No associated gene')
 
 
@@ -67,17 +99,17 @@ mouse = useMart("ensembl", dataset = "mmusculus_gene_ensembl", host = "https://d
 
 genesppi = getLDS(attributes = c("mgi_symbol","ensembl_peptide_id"), filters = "mgi_symbol", values = jax$Symbol , mart = mouse, attributesL = c("hgnc_symbol"), martL = human, uniqueRows=T)
 
-########################################################################################
-# Do random walk analyses
-########################################################################################
+#######################################################################
+#### Step 4. Annotate candidate gene file with RWR scores for the 305 iRNA seed genes
+#######################################################################
 
 library(RandomWalkRestartMH)
 
 # 305 iRNA seed genes for WNV infection involvement
 # Annotates the high impact genes with the percentile for the RWR score for this seed set
 
-seeds1<-read.csv("/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/RWR/NIHMS154918-supplement-Table_1_genes.csv",header=T)
-seeds2<-read.csv("/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/RWR/NIHMS154918-supplement-Table_2_genes.csv",header=T)
+seeds1<-read.csv("??????/NIHMS154918-supplement-Table_1_genes.csv",header=T)
+seeds2<-read.csv("??????/NIHMS154918-supplement-Table_2_genes.csv",header=T)
 seeds1$Symbol <- toupper(seeds1$Symbol)
 seeds2$Symbol <- toupper(seeds2$Symbol)
 
@@ -114,6 +146,10 @@ df305$pct305<-ecdf(df305$Score)(df305$Score)
 
 highimpactgenes$Score305<-highimpactgenes$Score
 highimpactgenes<-dplyr::select(highimpactgenes,-Score)
+
+#######################################################################
+#### Step 5. Annotate candidate gene file with RWR scores for GeneWeaver West Nile virus seed genes.
+#######################################################################
 
 # This is the geneweaver geneset for WNV
 # Annotates the high impact genes with the percentile for the RWR score for this seed set
@@ -160,10 +196,16 @@ dfDW$pctDW<-ecdf(dfDW$Score)(dfDW$Score)
 highimpactgenes$ScoreGW<-highimpactgenes$Score
 highimpactgenes<-dplyr::select(highimpactgenes,-Score)
  
+
+#######################################################################
+#### Step 6. Annotate candidate gene file with RWR scores for the t-cell 
+#### receptor signaling pathway seed genes from Immport
+#######################################################################
+
 # Immport random walk for t-cell receptor signaling pathway genes
 # Annotates the high impact genes with the percentile for the RWR score for this seed set
 
-tcr<-read.table('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/RWR/TCR_Signaling_Pathway.txt',header=T,sep="\t") 
+tcr<-read.table('??????/TCR_Signaling_Pathway.txt',header=T,sep="\t") 
 tcrgenes<-dplyr::distinct(tcr,Symbol)
 
 seedstemp<-inner_join(tcrgenes,distinct(genesppi,HGNC.symbol,MGI.symbol),by=c("Symbol"="HGNC.symbol"))
@@ -186,10 +228,14 @@ dftcr$pcttcr<-ecdf(dftcr$Score)(dftcr$Score)
 highimpactgenes$Scoretcr<-highimpactgenes$Score
 highimpactgenes<-dplyr::select(highimpactgenes,-Score)
 
+#######################################################################
+#### Step 7. Annotate candidate gene file with RWR scores for the interferon seed genes from Immport.
+#######################################################################
+
 # Immport random walk for ifn genes
 # Annotates the high impact genes with the percentile for the RWR score for this seed set
 
-ifn<-read.table('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/RWR/Interferons.txt',header=T,sep="\t") 
+ifn<-read.table('??????/Interferons.txt',header=T,sep="\t") 
 ifngenes<-dplyr::distinct(ifn,Symbol)
 
 seedstemp<-inner_join(ifngenes,distinct(genesppi,HGNC.symbol,MGI.symbol),by=c("Symbol"="HGNC.symbol"))
@@ -212,10 +258,15 @@ dfifn$pctifn<-ecdf(dfifn$Score)(dfifn$Score)
 highimpactgenes$Scoreifn<-highimpactgenes$Score
 highimpactgenes<-dplyr::select(highimpactgenes,-Score)
 
+#######################################################################
+#### Step 8. Annotate candidate gene file with RWR scores for the tumor 
+#### necrosis factor seed genes from Immport.
+#######################################################################
+
 # Immport random walk for tfn genes
 # Annotates the high impact genes with the percentile for the RWR score for this seed set
 
-tnf<-read.table('/Users/chambest/Documents/BACKUP/Shannons Work/Immunogenetics/Publications/QTL Paper/Nature Scientific Data/Workflows for Publication/Final Workflow/Data/RWR/TNF_Family_Members.txt',header=T,sep="\t") 
+tnf<-read.table('??????/TNF_Family_Members.txt',header=T,sep="\t") 
 tnfgenes<-dplyr::distinct(tnf,Symbol)
 
 
