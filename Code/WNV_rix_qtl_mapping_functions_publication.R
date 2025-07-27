@@ -39,11 +39,11 @@ showCols <- function(cl=colors(), bg = "grey",
  
 FoundProbAssocPlotsComplexShort_Publication<-function(phenocol,untransphenocol,sex,chr,start,end,qtl){
   
-  ### Everywhere there is ?????? the directory or PATH needs to be explicitly entered!!
+  ### The PATH variable needs to be explicitly entered!!
   
   print('in founder report loop')
   rm(tcoef, tmp, ma, sub_grp, g1,g2,coef,final_snps_phenos_all,tmpmrg)
-  outputdir='??????/Data/Output/'
+  outputdir='../DATA/Output/'
 
   #make parameters global for the boxplots and final candidate selection
   phenocol<<-phenocol
@@ -132,13 +132,13 @@ FoundProbAssocPlotsComplexShort_Publication<-function(phenocol,untransphenocol,s
   
   # This is specifically for SNPs only on the X chromosone, the PATH variable needs to be set here
   Sys.setenv(PATH="??????")
-  write.table(tmp[,c('chr','posm')],file="??????/Data/Output/tmp.txt",sep="\t",col.names=FALSE,quote=FALSE,row.names = FALSE)
-  getsnps<-"tabix -f '??????/Data/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz' -R '??????/Data/Output/tmp.txt' | cat > '??????/Data/Output/tmp_matched.txt'"
+  write.table(tmp[,c('chr','posm')],file="../DATA/Output/tmp.txt",sep="\t",col.names=FALSE,quote=FALSE,row.names = FALSE)
+  getsnps<-"tabix -f '../DATA/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz' -R '../DATA/Output/tmp.txt' | cat > '../DATA/Output/tmp_matched.txt'"
   system(getsnps)
   
   c<-"X"
-  region_variant <- read.delim(paste0('??????/Data/Output/tmp_matched.txt'),stringsAsFactors=F,header=F)  
-  header<-paste0("tabix -H -f '??????/Data/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz'  > '",outputdir,"/header.out'")
+  region_variant <- read.delim(paste0('../DATA/Output/tmp_matched.txt'),stringsAsFactors=F,header=F)  
+  header<-paste0("tabix -H -f '../DATA/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz'  > '",outputdir,"/header.out'")
   system(header)
   header<-read.delim(file.path(outputdir,paste0("header.out")),stringsAsFactors=F,skip=103)
     
@@ -302,7 +302,7 @@ FoundProbAssocPlotsComplexShort_Publication<-function(phenocol,untransphenocol,s
     }}
   
   # Load the protein coding gene coordinates
-  annotationdir="??????/Data/Annotation"
+  annotationdir="../DATA/Annotation"
   mgi_annotation<-read.delim(file.path(annotationdir,"mgi_annotation.rpt"),stringsAsFactors=F)
   uniprot_annotation<-read.delim(file.path(annotationdir,"MOUSE_10090_idmapping.dat"),stringsAsFactors=F,header=F)
   
