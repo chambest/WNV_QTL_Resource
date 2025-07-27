@@ -2,46 +2,49 @@
 ####################################################################################
 #### Step 1. Load Necessary R Functions and Libraries, Download All Required Files
 ####################################################################################
+dir.create(../DATA/Mapping)
+dir.create(../DATA/Phenotypes)
+dir.create(../DATA/Mapping)
+dir.create(../DATA/Sanger)
+dir.create(../DATA/Annotation)
+dir.create(../DATA/Output)
 
-## Load R functions and libraries
-source('../Code/WNV_rix_qtl_mapping_functions_publication.r')
-
-### All of the files below need to have destination directories added by replacing ??????. ####
+source('WNV_rix_qtl_mapping_functions_publication.r')
 
 # Download Oas1b_status_recoded.txt
-download.file(url = "https://figshare.com/ndownloader/files/51510053", destfile = "??????/Data/Mapping/Oas1b_status_recoded.txt")
+download.file(url = "https://figshare.com/ndownloader/files/51510053", destfile = "../DATA/Mapping/Oas1b_status_recoded.txt")
 
 # Download PhenotypesWNV Spleen Treg D7.csv. Both the file name and the directory destination need to be 
 # added for this since there are 30 phenotype files
-download.file(url = "https://figshare.com/ndownloader/files/51509957", destfile = "??????/Data/Phenotypes/PhenotypesWNV Spleen Treg D7.csv")
- 
+download.file(url = "https://figshare.com/ndownloader/files/51509957", destfile = "../DATA/Phenotypes/PhenotypesWNV Spleen Treg D7.csv")
+
 # Download rix_universal_model_prob_males_27-Jun-2016.rda
-download.file(url = "https://figshare.com/ndownloader/files/51510062", destfile = "??????/Data/Mapping//rix_universal_model_prob_males_27-Jun-2016.rda")
+download.file(url = "https://figshare.com/ndownloader/files/51510062", destfile = "../DATA/Mapping/rix_universal_model_prob_males_27-Jun-2016.rda")
 
 # Download CC001-Uncb38V01.csv
-download.file(url = "https://figshare.com/ndownloader/files/51510059", destfile = "??????/Data/Mapping//CC001-Uncb38V01.csv")
+download.file(url = "https://figshare.com/ndownloader/files/51510059", destfile = "../DATA/Mapping/CC001-Uncb38V01.csv")
 
 # Download mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz
-download.file(url = "https://figshare.com/ndownloader/files/51509939", destfile = "??????/Data/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz")
+download.file(url = "https://figshare.com/ndownloader/files/51509939", destfile = "../DATA/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz")
 
 # Download mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz.tbi
-download.file(url = "https://figshare.com/ndownloader/files/51509936", destfile = "??????/Data/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz.tbi")
+download.file(url = "https://figshare.com/ndownloader/files/51509936", destfile = "../DATA/Sanger/mgp.v5.merged.snps_all.dbSNP142_chrX.recode.vcf.gz.tbi")
 
 # Download mgi_annotation.rpt
-download.file(url = "https://figshare.com/ndownloader/files/51510080", destfile = "??????/Data/Annotation/mgi_annotation.rpt")
+download.file(url = "https://figshare.com/ndownloader/files/51510080", destfile = "../DATA/Annotation/mgi_annotation.rpt")
 
 # Download MOUSE_10090_idmapping.dat
-download.file(url = "https://figshare.com/ndownloader/files/51510083", destfile = "??????/Data/Annotation/MOUSE_10090_idmapping.dat")
+download.file(url = "https://figshare.com/ndownloader/files/51510083", destfile = "../DATA/Annotation/MOUSE_10090_idmapping.dat")
 
 ####################################################################################
 #### Step 2. Create Phenotype Dataframe
 ####################################################################################
 
 ## Read phenotype data, also need to make sure these directories are created and fully notated here
-cleaned_data_dir = '?????/Data/Phenotypes'
-pheno_dir = '?????/Data/Phenotypes'
-mapping_dir = '?????/Data/Mapping'
-data_dir = '?????/Data/Output'
+cleaned_data_dir = '../DATA/Phenotypes'
+pheno_dir = '../DATA/Phenotypes'
+mapping_dir = '../DATA/Mapping'
+data_dir = '../DATA/Output'
 
 ## For this example we're working with Spleen Treg Day 7 phenotypes
 pheno = read.csv(file.path(cleaned_data_dir, 'PhenotypesWNV Spleen Treg D7.csv'), header=T, as.is=T)
@@ -191,12 +194,10 @@ prob.plot(pheno=pheno, pheno.col='treg_CD4pos_Foxp3neg_box_cox_7_WNV_Spleen', pr
 #Step 9. Run haplotype groupings, identify variants of interest in QTL interval, and identify gene candidates
 ####################################################################################
 
-## Create the association plots and identify gene candidates in the interval
-## Directories in the following function will need to be changed to map the directories in the above file downloads
+# Directories in the following function will need to be changed to map the directories in the above file downloads
 phenocol<-'treg_CD4pos_Foxp3neg_box_cox_7_WNV_Spleen'
 phenocolend="WNV_Spleen"
 untransphenocol<-substr(phenocol,1,str_locate(phenocol,phenocolend)[,1]-2)
-print("inner function")
 start=interval[1,3]
 end=interval[3,3]
 sex='M'
@@ -204,7 +205,6 @@ outputdir=data_dir
 chr='X'
 # The following function will need to have the system PATH variable set to run the 'tabix' command. Tabix will also need to be installed to 
 # run this R function
-
 FoundProbAssocPlotsComplexShort_Publication(phenocol=phenocol,untransphenocol=untransphenocol,sex=sex,chr=chr,start=start,end=end,qtl=qtl) 
 
 
