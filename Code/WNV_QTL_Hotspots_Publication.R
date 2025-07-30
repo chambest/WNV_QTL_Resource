@@ -6,15 +6,14 @@
 #### Step 1. Load Necessary R Functions and Libraries and Install QHOT
 ###########################################################################
 
-## Load R functions and libraries and download required files, replace ?????? with specific directory
-source('??????/WNV_rix_qtl_mapping_functions_publication.r')
+## Load R functions and libraries and download required files 
+source('WNV_rix_qtl_mapping_functions_publication.r')
 install.packages("QHOT")
 library(QHOT)
 
-### All of the files below need to have destination directories added by replacing ??????. ####
 
 # Download allsnps_genesonly_final_infected.rda
-download.file(url = "https://figshare.com/ndownloader/files/51509954", destfile = "??????/allsnps_genesonly_final_infected.rda")
+download.file(url = "https://figshare.com/ndownloader/files/51509954", destfile = "../DATA/allsnps_genesonly_final_infected.rda")
 
 ###########################################################################
 #### Step 2. Create the QTL list to be used in the hotspot analysis
