@@ -8,12 +8,12 @@
 
 ## Load R functions and libraries
  
-source('??????/WNV_rix_qtl_mapping_functions_publication.r')
+source('WNV_rix_qtl_mapping_functions_publication.r')
 
 ### The file below needs to have destination directory added by replacing ??????. ####
 
 # Download Final Annotated QTL.csv
-download.file(url = "https://figshare.com/ndownloader/files/51509951", destfile = "??????/Final Annotated QTL.csv")
+download.file(url = "https://figshare.com/ndownloader/files/51509951", destfile = "../DATA/Final Annotated QTL.csv")
 
 ###########################################################################
 #### Step 2. Set up and run the k-means clustering
