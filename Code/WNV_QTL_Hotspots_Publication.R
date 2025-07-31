@@ -20,7 +20,7 @@ download.file(url = "https://figshare.com/ndownloader/files/51509954", destfile 
 ###########################################################################
 
 ## Load the master annotated variant file and derive the QTL information, all QTL are used
-load("??????/allsnps_genesonly_final_infected.rda")
+load("../DATA/allsnps_genesonly_final_infected.rda")
 
 #QTL that match criteria for QTL hotspot detection
 allqtl<-distinct(allsnps_genesonly_final_infected,finalpheno, time, tissue, panel, start.y, end.y, chr,label1,maxlodval.y,finalcat)
