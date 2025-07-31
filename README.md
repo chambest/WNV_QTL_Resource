@@ -10,7 +10,7 @@ This is the program/notebook for West Nile virus QTL mapping, haplotype grouping
 
 ## WNV_QTL_Phenotype_Clustering_Publication
 This is the program/notebook for West Nile virus QTL phenotype clustering. This purpose of this step was to expand the criteria for selecting QTL of interest for the hot spot analysis.
-[[Go to program]]('https://github.com/chambest/WNV_QTL_Resource/tree/main/Code/WNV_QTL_Phenotype_Clustering_Publication.ipynb')
+[[Go to program]](https://github.com/chambest/WNV_QTL_Resource/tree/main/Code/WNV_QTL_Phenotype_Clustering_Publication.ipynb)
 
 ## WNV_QTL_Hotspots_Publication
 This is the program/notebook for West Nile virus QTL hotspot analysis. This program looks at areas of the genome where there are a larger number of overlapping QTL than expected. Gene candidates in QTL that are also in or near these hot spots are given higher priority for further analysis.
