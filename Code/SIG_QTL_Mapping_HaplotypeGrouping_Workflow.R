@@ -2,12 +2,12 @@
 ####################################################################################
 #### Step 1. Load Necessary R Functions and Libraries, Download All Required Files
 ####################################################################################
-dir.create(../DATA/Mapping)
-dir.create(../DATA/Phenotypes)
-dir.create(../DATA/Mapping)
-dir.create(../DATA/Sanger)
-dir.create(../DATA/Annotation)
-dir.create(../DATA/Output)
+dir.create('../DATA/Mapping')
+dir.create('../DATA/Phenotypes')
+dir.create('../DATA/Mapping')
+dir.create('../DATA/Sanger')
+dir.create('../DATA/Annotation')
+dir.create('../DATA/Output')
 
 source('WNV_rix_qtl_mapping_functions_publication.r')
 
